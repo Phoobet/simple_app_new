@@ -52,8 +52,8 @@ class MyHomePage extends StatelessWidget{
             children:[
               Column(
                 children: [
-                  Text('First Name: Nattapon'),
-                  Text('Last Name: Kumyaito'),
+                  Text('First Name: Phoobet'),
+                  Text('Last Name: Srikamhaeng'),
                 ]
             ),
             ]
@@ -67,8 +67,8 @@ class MyHomePage extends StatelessWidget{
           Row(children: [
             Column(
               children: [
-                Text('Primary: Satit Pibulsongkram School'),
-                Text('Secondary: Chalermkwansatree School'),
+                Text('Primary: Rahamwiittaya School'),
+                Text('Secondary: Rahamwiittaya School'),
                 Text('UnderGrad: Naresuan University'),
               ],
             ),
