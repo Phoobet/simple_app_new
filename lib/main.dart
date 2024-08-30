@@ -6,7 +6,7 @@ void main() {
     title:"simple App",
     home: Scaffold(
       appBar: AppBar(
-        title :Text("Simple App"),
+        title :const Text("Simple App"),
       ),
       body: Convert(),
     ),
