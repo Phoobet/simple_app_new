@@ -22,7 +22,7 @@ class _ConvertState extends State<Convert> {
     // var params = <String, String>{
     //   'base': 'USD'
     // };
-    var url = "currency-converter-pro1.p.rapidapi.com";
+    var url = "https://currency-converter-pro1.p.rapidapi.com/currencies";
 
     var uri = Uri.https(url,'/currencies');
 
