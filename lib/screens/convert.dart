@@ -22,14 +22,14 @@ class _ConvertState extends State<Convert> {
     // var params = <String, String>{
     //   'base': 'USD'
     // };
-    var url = "currency-converter-pro1.p.rapidapi.com";
+    var url = "https://currency-converter-pro1.p.rapidapi.com/currencies";
 
     var uri = Uri.https(url,'/currencies');
 
     var response = await http.get(
       uri,
       headers: <String, String>{
-        'X-RapidAPI-Key': ' ebe77befcamsh4b38efb093e9848p1e09bejsn3b5365d6ede2',
+        'X-RapidAPI-Key': 'ebe77befcamsh4b38efb093e9848p1e09bejsn3b5365d6ede2',
         'X-RapidAPI-Host': 'currency-converter-pro1.p.rapidapi.com'
       },
     );
