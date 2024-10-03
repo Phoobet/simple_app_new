@@ -9,6 +9,7 @@ class FormScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final pilotController = TextEditingController();
+  final newFieldController = TextEditingController(); // New field controller
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,6 @@ class FormScreen extends StatelessWidget {
                   }
                   return null;
                 },
-                
               ),
               
               const SizedBox(height: 16.0), // เพิ่ม spacing ระหว่าง fields
@@ -55,6 +55,21 @@ class FormScreen extends StatelessWidget {
                   return null;
                 },
               ),
+
+              const SizedBox(height: 16.0), // เพิ่ม spacing ก่อน field ใหม่
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'New Field', // เปลี่ยนชื่อ label ตามที่ต้องการ
+                ),
+                controller: newFieldController, // ใหม่
+                validator: (String? input) {
+                  if (input == null || input.isEmpty) {
+                    return 'กรุณากรอกข้อมูล';
+                  }
+                  return null;
+                },
+              ),
+              
               const SizedBox(height: 24.0), // เพิ่ม spacing ก่อนปุ่ม
               TextButton(
                 child: const Text('Confirm'),
