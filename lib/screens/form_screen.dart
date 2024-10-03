@@ -8,69 +8,78 @@ class FormScreen extends StatelessWidget {
 
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
-  final amountController = TextEditingController();
+  final pilotController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('แบบฟอร์มข้อมูล'),
-        ),
-        body: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'ชื่อรายการ',
-                  ),
-                  autofocus: true,
-                  controller: titleController,
-                  validator: (String? str) {
-                    if (str!.isEmpty) {
-                      return 'กรุณากรอกข้อมูล';
-                    }
-                  },
+      appBar: AppBar(
+        title: const Text('Gundam Data'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0), // เพิ่ม padding รอบๆ form
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, // จัดตำแหน่งให้เริ่มจากซ้าย
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Gundam Name',
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'จำนวนเงิน',
-                  ),
-                  keyboardType: TextInputType.number,
-                  controller: amountController,
-                  validator: (String? input) {
-                    try {
-                      double amount = double.parse(input!);
-                      if (amount < 0) {
-                        return 'กรุณากรอกข้อมูลมากกว่า 0';
-                      }
-                    } catch (e) {
-                      return 'กรุณากรอกข้อมูลเป็นตัวเลข';
-                    }
-                  },
+                autofocus: true,
+                controller: titleController,
+                validator: (String? str) {
+                  if (str!.isEmpty) {
+                    return 'กรุณากรอกข้อมูล';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16.0), // เพิ่ม spacing ระหว่าง fields
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Pilot',
                 ),
-                TextButton(
-                    child: const Text('บันทึก'),
-                    onPressed: () {
-                          if (formKey.currentState!.validate())
-                            {
-                              // create transaction data object
-                              var statement = Transactions(
-                                  title: titleController.text,
-                                  amount: double.parse(amountController.text),
-                                  date: DateTime.now()
-                                  );
-                            
-                              // add transaction data object to provider
-                              var provider = Provider.of<TransactionProvider>(context, listen: false);
-                              
-                              provider.addTransaction(statement);
+                keyboardType: TextInputType.text,
+                controller: pilotController,
+                validator: (String? input) {
+                  if (input == null || input.isEmpty) {
+                    return 'กรุณากรอกข้อมูล';
+                  }
+                  if (input.length < 3) {
+                    return 'กรุณากรอกข้อมูลอย่างน้อย 3 ตัวอักษร';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 24.0), // เพิ่ม spacing ก่อนปุ่ม
+              TextButton(
+                child: const Text('Confirm'),
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    // ปิดแป้นพิมพ์
+                    FocusScope.of(context).unfocus();
+                    
+                    // create transaction data object
+                    var statement = Transactions(
+                      title: titleController.text,
+                      amount: pilotController.text,
+                      date: DateTime.now(),
+                    );
+                    
+                    // add transaction data object to provider
+                    var provider = Provider.of<TransactionProvider>(context, listen: false);
+                    provider.addTransaction(statement);
 
-                              Navigator.pop(context);
-                            }
-                        })
-              ],
-            )));
+                    Navigator.pop(context);
+                  }
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

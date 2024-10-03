@@ -41,7 +41,7 @@ class TransactionDB{
     for (var record in snapshot) {
       transactions.add(Transactions(
         title: record['title'].toString(),
-        amount: double.parse(record['amount'].toString()),
+        amount: record['amount'].toString(),
         date: DateTime.parse(record['date'].toString())
       ));
     }

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const MyHomePage(title: 'แอพบัญชี'),
+        home: const MyHomePage(title: 'Gundam DaTa'),
       ),
     );
   }
@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
           builder: (context, TransactionProvider provider, Widget? child) {
             if (provider.transactions.isEmpty) {
               return const Center(
-                child: Text('ไม่มีรายการ'),
+                child: Text('Gundam'),
               );
             } else {
               return ListView.builder(
