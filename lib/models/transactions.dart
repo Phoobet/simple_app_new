@@ -1,13 +1,23 @@
 class Transactions {
-  // final String id;
+  int? id;
   final String title;
-  final String amount;
+  final String pilot;
+  final String serialcode;
+  final String weapon;
+  final String functionalsystem;
+  final String imagePath;
   final DateTime date;
+ 
 
   Transactions({
-    // required this.id,
+    this.id,
     required this.title,
-    required this.amount,
+    required this.pilot,
+    required this.serialcode,
+    required this.weapon,
+    required this.functionalsystem,
+    required this.imagePath,
     required this.date,
+   
   });
 }

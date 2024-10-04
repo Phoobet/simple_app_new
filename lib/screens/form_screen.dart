@@ -9,8 +9,9 @@ class FormScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final pilotController = TextEditingController();
-  final newFieldController = TextEditingController(); // New field controller
-
+  final weaponController = TextEditingController(); 
+  final functionalsystemController = TextEditingController();
+  final serialcodeControllre = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +38,25 @@ class FormScreen extends StatelessWidget {
                   return null;
                 },
               ),
+
+               const SizedBox(height: 16.0), // เพิ่ม spacing ก่อน field ใหม่
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'serialcode', // เปลี่ยนชื่อ label ตามที่ต้องการ
+                ),
+                controller:serialcodeControllre, // ใหม่
+                validator: (String? input) {
+                  if (input == null || input.isEmpty) {
+                    return 'กรุณากรอกข้อมูล';
+                  }
+                  return null;
+                },
+              ),
               
               const SizedBox(height: 16.0), // เพิ่ม spacing ระหว่าง fields
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Pilot',
+                  labelText: 'pilot',
                 ),
                 keyboardType: TextInputType.text,
                 controller: pilotController,
@@ -49,8 +64,8 @@ class FormScreen extends StatelessWidget {
                   if (input == null || input.isEmpty) {
                     return 'กรุณากรอกข้อมูล';
                   }
-                  if (input.length < 3) {
-                    return 'กรุณากรอกข้อมูลอย่างน้อย 3 ตัวอักษร';
+                  if (input.length < 1) {
+                    return 'กรุณากรอกข้อมูลอย่างน้อย 1 ตัวอักษร';
                   }
                   return null;
                 },
@@ -59,9 +74,22 @@ class FormScreen extends StatelessWidget {
               const SizedBox(height: 16.0), // เพิ่ม spacing ก่อน field ใหม่
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'New Field', // เปลี่ยนชื่อ label ตามที่ต้องการ
+                  labelText: 'Weapon', // เปลี่ยนชื่อ label ตามที่ต้องการ
                 ),
-                controller: newFieldController, // ใหม่
+                controller: weaponController, // ใหม่
+                validator: (String? input) {
+                  if (input == null || input.isEmpty) {
+                    return 'กรุณากรอกข้อมูล';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16.0), // เพิ่ม spacing ก่อน field ใหม่
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'FunctionalSystem', // เปลี่ยนชื่อ label ตามที่ต้องการ
+                ),
+                controller:functionalsystemController, // ใหม่
                 validator: (String? input) {
                   if (input == null || input.isEmpty) {
                     return 'กรุณากรอกข้อมูล';
@@ -70,6 +98,9 @@ class FormScreen extends StatelessWidget {
                 },
               ),
               
+
+
+
               const SizedBox(height: 24.0), // เพิ่ม spacing ก่อนปุ่ม
               TextButton(
                 child: const Text('Confirm'),
@@ -81,7 +112,11 @@ class FormScreen extends StatelessWidget {
                     // create transaction data object
                     var statement = Transactions(
                       title: titleController.text,
-                      amount: pilotController.text,
+                      pilot: pilotController.text,
+                      serialcode:serialcodeControllre.text,
+                      weapon: weaponController.text,
+                      functionalsystem: functionalsystemController.text,
+                      imagePath: 'assets/images/Freedom.png',
                       date: DateTime.now(),
                     );
                     
