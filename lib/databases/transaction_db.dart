@@ -68,4 +68,6 @@ class TransactionDB {
     await store.record(id).delete(db);
     db.close(); // ปิดฐานข้อมูลหลังการลบข้อมูล
   }
+
+  updateDatabase(Transactions newTransaction) {}
 }

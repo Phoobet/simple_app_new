@@ -1,7 +1,10 @@
-import 'package:simple_app/models/transactions.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_app/models/transactions.dart';
 import 'package:simple_app/provider/transaction_provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class FormScreen extends StatelessWidget {
   FormScreen({super.key});
@@ -11,7 +14,9 @@ class FormScreen extends StatelessWidget {
   final pilotController = TextEditingController();
   final weaponController = TextEditingController(); 
   final functionalsystemController = TextEditingController();
-  final serialcodeControllre = TextEditingController();
+  final serialcodeController = TextEditingController();
+  String? imagePath; // Variable to store the selected image path
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +44,12 @@ class FormScreen extends StatelessWidget {
                 },
               ),
 
-               const SizedBox(height: 16.0), // เพิ่ม spacing ก่อน field ใหม่
+              const SizedBox(height: 16.0), // เพิ่ม spacing ก่อน field ใหม่
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'serialcode', // เปลี่ยนชื่อ label ตามที่ต้องการ
+                  labelText: 'Serial Code', // เปลี่ยนชื่อ label ตามที่ต้องการ
                 ),
-                controller:serialcodeControllre, // ใหม่
+                controller: serialcodeController,
                 validator: (String? input) {
                   if (input == null || input.isEmpty) {
                     return 'กรุณากรอกข้อมูล';
@@ -56,7 +61,7 @@ class FormScreen extends StatelessWidget {
               const SizedBox(height: 16.0), // เพิ่ม spacing ระหว่าง fields
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'pilot',
+                  labelText: 'Pilot',
                 ),
                 keyboardType: TextInputType.text,
                 controller: pilotController,
@@ -76,7 +81,7 @@ class FormScreen extends StatelessWidget {
                 decoration: const InputDecoration(
                   labelText: 'Weapon', // เปลี่ยนชื่อ label ตามที่ต้องการ
                 ),
-                controller: weaponController, // ใหม่
+                controller: weaponController,
                 validator: (String? input) {
                   if (input == null || input.isEmpty) {
                     return 'กรุณากรอกข้อมูล';
@@ -87,9 +92,9 @@ class FormScreen extends StatelessWidget {
               const SizedBox(height: 16.0), // เพิ่ม spacing ก่อน field ใหม่
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'FunctionalSystem', // เปลี่ยนชื่อ label ตามที่ต้องการ
+                  labelText: 'Functional System', // เปลี่ยนชื่อ label ตามที่ต้องการ
                 ),
-                controller:functionalsystemController, // ใหม่
+                controller: functionalsystemController,
                 validator: (String? input) {
                   if (input == null || input.isEmpty) {
                     return 'กรุณากรอกข้อมูล';
@@ -97,9 +102,42 @@ class FormScreen extends StatelessWidget {
                   return null;
                 },
               ),
-              
 
+              const SizedBox(height: 16.0), // เพิ่ม spacing ก่อน field ใหม่
+              // Add an image picker button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    imagePath != null ? 'Selected Image: ${imagePath!.split('/').last}' : 'No Image Selected',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      // Request permission to access storage
+                      var status = await Permission.storage.status;
+                      if (!status.isGranted) {
+                        status = await Permission.storage.request();
+                      }
 
+                      if (status.isGranted) {
+                        // Open the image picker
+                        final picker = ImagePicker();
+                        final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                        if (pickedFile != null) {
+                          imagePath = pickedFile.path; // Update the selected image path
+                        }
+                      } else {
+                        // Show a message if permission is not granted
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('ต้องให้สิทธิ์ในการเข้าถึง storage')),
+                        );
+                      }
+                    },
+                    child: const Text('Select Image'),
+                  ),
+                ],
+              ),
 
               const SizedBox(height: 24.0), // เพิ่ม spacing ก่อนปุ่ม
               TextButton(
@@ -109,18 +147,18 @@ class FormScreen extends StatelessWidget {
                     // ปิดแป้นพิมพ์
                     FocusScope.of(context).unfocus();
                     
-                    // create transaction data object
+                    // Create transaction data object
                     var statement = Transactions(
                       title: titleController.text,
                       pilot: pilotController.text,
-                      serialcode:serialcodeControllre.text,
+                      serialcode: serialcodeController.text,
                       weapon: weaponController.text,
                       functionalsystem: functionalsystemController.text,
-                      imagePath: 'assets/images/Freedom.png',
+                      imagePath: imagePath ?? 'assets/images/Freedom.png', // Use the selected image or a default
                       date: DateTime.now(),
                     );
                     
-                    // add transaction data object to provider
+                    // Add transaction data object to provider
                     var provider = Provider.of<TransactionProvider>(context, listen: false);
                     provider.addTransaction(statement);
 
