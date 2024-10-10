@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:app/provider/transaction_provider.dart';
-import 'package:app/screen/EditFormScreen.dart';
-import 'package:app/screen/detailScreen.dart';
+import 'package:simple_app/provider/transaction_provider.dart';
+import 'package:simple_app/screen/EditFormScreen.dart';
+import 'package:simple_app/screen/detailScreen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Homescreen extends StatefulWidget {

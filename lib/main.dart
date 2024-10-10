@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:app/screen/HomeScreen.dart';
-import 'package:app/screen/form_screen.dart';
+import 'package:simple_app/screen/HomeScreen.dart';
+import 'package:simple_app/screen/form_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:app/provider/transaction_provider.dart';
+import 'package:simple_app/provider/transaction_provider.dart';
 
 void main() {
   runApp(const MyApp());

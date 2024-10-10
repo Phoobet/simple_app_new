@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:app/models/transaction.dart';
-import 'package:app/provider/transaction_provider.dart';
+import 'package:simple_app/models/transaction.dart';
+import 'package:simple_app/provider/transaction_provider.dart';
 
 class EditFormScreen extends StatefulWidget {
   final Transactions transaction;

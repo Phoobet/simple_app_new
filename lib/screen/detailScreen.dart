@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // ใช้สำหรับการจัดรูปแบบวันที่
-import 'package:app/models/transaction.dart';
+import 'package:simple_app/models/transaction.dart';
 
 class DetailScreen extends StatelessWidget {
   final Transactions transaction;
