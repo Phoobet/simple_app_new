@@ -21,11 +21,12 @@ class FormScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('แบบฟอร์มข้อมูล'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0), // เพิ่ม Padding รอบๆ Form
+      body: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: formKey,
-          child: SingleChildScrollView( // เพื่อให้ Scroll ได้เมื่อหน้าจอเล็ก
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 TextFormField(
@@ -33,7 +34,7 @@ class FormScreen extends StatelessWidget {
                     labelText: 'Gundam Name',
                     border: OutlineInputBorder(),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                   ),
                   autofocus: true,
                   controller: gundamnameController,
@@ -41,16 +42,16 @@ class FormScreen extends StatelessWidget {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
                     }
-                    return null; // เพิ่มการส่งค่ากลับเมื่อข้อมูลถูกต้อง
+                    return null;
                   },
                 ),
-                const SizedBox(height: 16), // เว้นระยะห่างระหว่าง TextFormField
+                const SizedBox(height: 16),
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'Serial Code',
                     border: OutlineInputBorder(),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                   ),
                   controller: serialcodeController,
                   validator: (String? str) {
@@ -66,7 +67,7 @@ class FormScreen extends StatelessWidget {
                     labelText: 'Pilot',
                     border: OutlineInputBorder(),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Color.fromARGB(255, 255, 255, 254),
                   ),
                   controller: pilotController,
                   validator: (String? str) {
@@ -82,7 +83,7 @@ class FormScreen extends StatelessWidget {
                     labelText: 'Weapon',
                     border: OutlineInputBorder(),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                   ),
                   controller: weaponController,
                   validator: (String? str) {
@@ -98,7 +99,7 @@ class FormScreen extends StatelessWidget {
                     labelText: 'Functional System',
                     border: OutlineInputBorder(),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                   ),
                   controller: functionalsystemController,
                   validator: (String? str) {
@@ -112,7 +113,6 @@ class FormScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      // Create transaction data object
                       var statement = Transactions(
                         keyID: null,
                         gundamname: gundamnameController.text,
@@ -121,26 +121,26 @@ class FormScreen extends StatelessWidget {
                         weapon: weaponController.text,
                         functionalsystem: functionalsystemController.text,
                         date: DateTime.now(),
+                        imagePath: null, // No image path since we removed the image functionality
                       );
 
-                      // Add transaction data object to provider
                       var provider = Provider.of<TransactionProvider>(context, listen: false);
                       provider.addTransaction(statement);
 
-                      // Navigate back to HomeScreen
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                         return MyHomePage();
                       }));
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16), // เพิ่ม Padding ในปุ่ม
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8), // เพิ่มมุมโค้ง
+                      borderRadius: BorderRadius.circular(8),
                     ),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                   ),
                   child: const Text(
-                    'save',
+                    'Save',
                     style: TextStyle(fontSize: 18),
                   ),
                 ),

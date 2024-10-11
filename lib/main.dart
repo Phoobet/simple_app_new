@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 245, 0, 0)),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 0, 17, 255)),
           useMaterial3: true,
         ),
-        home: MyHomePage(), // เพิ่มส่วนนี้เพื่อระบุหน้าเริ่มต้น
+        home: MyHomePage(), // ระบุหน้าเริ่มต้น
       ),
     );
   }
@@ -44,12 +44,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          body: TabBarView(
+      length: 2,
+      child: Scaffold(
+        // Set the background color for the entire Scaffold
+        backgroundColor: const Color.fromARGB(255, 10, 207, 233), 
+        body: Container(
+          // Set the background color for the TabBarView
+          color: const Color.fromARGB(255, 18, 240, 248), 
+          child: TabBarView(
             children: [Homescreen(), FormScreen()],
           ),
-          bottomNavigationBar: const TabBar(
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: TabBar(
             tabs: [
               Tab(
                 text: "List of Information",
@@ -57,9 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Tab(
                 text: "Add information",
-              )
+                icon: Icon(Icons.add),
+              ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

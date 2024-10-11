@@ -40,7 +40,7 @@ class _MyHomeScreenState extends State<Homescreen> {
         builder: (context, provider, child) {
           if (provider.transactions.isEmpty) {
             return const Center(
-              child: Text('ไม่มีรายการ', style: TextStyle(fontSize: 18)),
+              child: Text('No Data', style: TextStyle(fontSize: 18)),
             );
           } else {
             return ListView.builder(
@@ -59,14 +59,15 @@ class _MyHomeScreenState extends State<Homescreen> {
                       DateFormat('dd MMM yyyy hh:mm:ss').format(statement.date),
                       style: const TextStyle(fontSize: 14),
                     ),
-                    leading: const CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.blueAccent,
-                      child: FittedBox(
+                    leading: Container(
+                      width: 60, // Set width for square
+                      height: 60, // Set height for square
+                      color: Colors.blueAccent, // Background color
+                      child: const FittedBox(
                         child: FaIcon(
                           FontAwesomeIcons.robot,
                           size: 24,
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 255, 255, 255),
                         ),
                       ),
                     ),

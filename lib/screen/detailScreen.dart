@@ -11,7 +11,7 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('รายละเอียดข้อมูล'),
+        title: const Text('Detailed information'),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Padding(
@@ -36,55 +36,34 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ),
                 const Divider(thickness: 1, height: 20),
-                ListTile(
-                  leading:
-                      const Icon(Icons.star, color: Colors.amber, size: 30),
-                  title: const Text('Gundam Name : '),
-                  subtitle: Text(
-                    transaction.gundamname,
-                    style: const TextStyle(fontSize: 18),
-                  ),
+                _buildDetailTile(
+                  icon: Icons.star,
+                  title: 'Gundam Name',
+                  subtitle: transaction.gundamname,
                 ),
                 const Divider(thickness: 1, height: 20),
-                ListTile(
-                  leading: const Icon(Icons.qr_code,
-                      color: Colors.green, size: 30),
-                  title: const Text('Serial Code : '),
-                  subtitle: Text(
-                    transaction.serialcode,
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                ),
-                
-                const Divider(thickness: 1, height: 20),
-                ListTile(
-                  leading:
-                      const Icon(Icons.person, color: Color.fromARGB(255, 5, 216, 231), size: 30),
-                  title: const Text('Pilot : '),
-                  subtitle: Text(
-                    transaction.pilot,
-                    style: const TextStyle(fontSize: 18),
-                  ),
+                _buildDetailTile(
+                  icon: Icons.qr_code,
+                  title: 'Serial Code',
+                  subtitle: transaction.serialcode,
                 ),
                 const Divider(thickness: 1, height: 20),
-                ListTile(
-                  leading:
-                      const Icon(Icons.security, color: Color.fromARGB(255, 19, 209, 44), size: 30),
-                  title: const Text('Weapon : '),
-                  subtitle: Text(
-                    transaction.weapon,
-                    style: const TextStyle(fontSize: 18),
-                  ),
+                _buildDetailTile(
+                  icon: Icons.person,
+                  title: 'Pilot',
+                  subtitle: transaction.pilot,
                 ),
                 const Divider(thickness: 1, height: 20),
-                ListTile(
-                  leading:
-                      const Icon(Icons.settings, color: Color.fromARGB(255, 35, 7, 161), size: 30),
-                  title: const Text('Functional System : '),
-                  subtitle: Text(
-                    transaction.functionalsystem,
-                    style: const TextStyle(fontSize: 18),
-                  ),
+                _buildDetailTile(
+                  icon: Icons.security,
+                  title: 'Weapon',
+                  subtitle: transaction.weapon,
+                ),
+                const Divider(thickness: 1, height: 20),
+                _buildDetailTile(
+                  icon: Icons.settings,
+                  title: 'Functional System',
+                  subtitle: transaction.functionalsystem,
                 ),
                 const Divider(thickness: 1, height: 20),
                 ListTile(
@@ -100,6 +79,20 @@ class DetailScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  // ฟังก์ชันสร้าง ListTile สำหรับข้อมูลรายละเอียด
+  Widget _buildDetailTile({required IconData icon, required String title, required String subtitle}) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.amber, size: 30),
+      title: Text(title),
+      subtitle: Text(
+        subtitle,
+        style: const TextStyle(fontSize: 18),
+        maxLines: 2, // จำกัดจำนวนบรรทัดที่แสดง
+        overflow: TextOverflow.ellipsis, // ตัดคำเมื่อเกิน
       ),
     );
   }

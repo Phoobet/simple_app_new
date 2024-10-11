@@ -7,6 +7,7 @@ class Transactions {
   final String weapon;
   final String functionalsystem;
   final DateTime date;
+  final String? imagePath; 
 
   Transactions({
     // required this.id,
@@ -17,5 +18,6 @@ class Transactions {
     required this.weapon,
     required this.functionalsystem,
     required this.date,
+    this.imagePath,
   });
 }
